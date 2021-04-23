@@ -26,6 +26,7 @@ Artifact                    | Description
 .mysyncIgnore               | Placed in the root of the origin, this works like a .gitignore
 .mysyncRetain               | Placed in the root of the origin, this tells the MySync process which files to retain (so that past versions of the file are preserved in the YYYYMMDD_retains.zip files).
 
+## Snapshots
 ![Snapshots](./docs/Snapshots.png)
 
 ## Action Table
