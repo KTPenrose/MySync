@@ -1,5 +1,5 @@
 [package]
-name = "MySync"
+name = "my_sync"
 version = "0.1.0"
 authors = ["KTPenrose <kurt@mysync.app>"]
 edition = "2018"
