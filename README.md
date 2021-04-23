@@ -4,9 +4,9 @@ A simple, safe, and user-friendly two-way synchronization tool.
 ## Status
 At this point, this repository is little more than a hello-world.
 
-Below is the proposed operation:
+## Proposed Operation:
 
-## Commands
+### Commands
 Command/Synopsys                  |  Description                         | Example
 ----------------------------------|--------------------------------------|------------------------------------
 MySync Clone <Origin Directory>   | Clone a directory (Known as the origin) into the current directory (known as the local repository) | MySync Clone o:\myfiles\myphotos
@@ -18,7 +18,7 @@ MySync Clone <Origin Directory>   | Clone a directory (Known as the origin) into
 &nbsp; |-checksum&nbsp;&nbsp;&nbsp;This will perform a deep comparison, where it compares<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not only by dates and size, but by file checksums.|   
 &nbsp; |-forcelock&nbsp;&nbsp;&nbsp;This will remove the [origin]/.mysync/.lock file and create<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a new .lock file to process the sync. | 
   
-## Artifacts
+### Artifacts
 
 Artifact                    | Description
 ----------------------------|-----------------------------------------------------
@@ -26,10 +26,10 @@ Artifact                    | Description
 .mysyncIgnore               | Placed in the root of the origin, this works like a .gitignore
 .mysyncRetain               | Placed in the root of the origin, this tells the MySync process which files to retain (so that past versions of the file are preserved in the YYYYMMDD_retains.zip files).
 
-## Snapshots
+### Snapshots
 ![Snapshots](./docs/Snapshots.png)
 
-## Action Table
+### Action Table
 
 Local Repository | Origin | Action
 -----------------|--------|--------
