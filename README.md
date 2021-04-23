@@ -4,7 +4,7 @@ A simple, safe, and user-friendly two-way synchronization tool.
 ## Status
 At this point, this repository is little more than a hello-world.
 
-## Proposed Operation:
+## Proposed Operation
 
 ### Commands
 Command/Synopsys                  |  Description                         | Example
