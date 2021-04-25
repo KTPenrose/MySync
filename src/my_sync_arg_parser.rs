@@ -103,13 +103,17 @@ pub fn parse_args(args:impl Iterator<Item=String>)->UserInstructions {
                 user_instructions.is_interactive=true;
             }
         } else if arg=="-push" {
-            if user_instructions.is_interactive {
+            if !matches!(user_instructions.action,ActionTypes::Sync) {
+                user_instructions.error_messages.push(format!("Can't use the -pull flag with action '{}'", user_instructions.action));
+            } else if user_instructions.is_interactive {
                 user_instructions.error_messages.push(format!("Can't use the -i flag with sync strategy 'Push'"));
             } else {
                 user_instructions.sync_strategy=SyncStrategy::Push;
             }
         } else if arg=="-pull" {
-            if user_instructions.is_interactive {
+            if !matches!(user_instructions.action,ActionTypes::Sync) {
+                user_instructions.error_messages.push(format!("Can't use the -pull flag with action '{}'", user_instructions.action));
+            } else if user_instructions.is_interactive {
                 user_instructions.error_messages.push(format!("Can't use the -i flag with sync strategy 'Pull'"));
             } else {
                 user_instructions.sync_strategy=SyncStrategy::Pull;
@@ -176,7 +180,10 @@ mod test {
         } else {
             assert!(false, "origin's don't match!");
         }
-        assert!(ui.error_messages.len()==myref.error_messages.len());       
+        assert!(ui.error_messages.len()==myref.error_messages.len());
+        for i in 0..ui.error_messages.len() {
+            assert_eq!(&ui.error_messages[i],&myref.error_messages[i])
+        }       
     }
 
     //mysync clone c:\mydir
@@ -329,11 +336,30 @@ mod test {
     fn test_sync_interactive_pull() {
         let args=std::array::IntoIter::new(["sync".to_string(),"-i".to_string(),"-pull".to_string()]);
         let user_instructions:UserInstructions=crate::my_sync_arg_parser::parse_args(args);
+        
+        let mut error_messages = Vec::new();
+        error_messages.push("Can't use the -i flag with sync strategy 'Pull'".to_string());
+        matchui (user_instructions, UserInstructions { is_help:true, action:ActionTypes::Sync, is_interactive:true, 
+            sync_strategy:SyncStrategy::Sync, do_checksum:false, force_lock:false, origin: Option::None,
+            error_messages });
+    }
+
+    //mysync clone -i "my fancy directory" -pull garbage
+    #[test]
+    fn test_clone_interactive_pull_garbage() {
+        let args=std::array::IntoIter::new(["clone".to_string(),"-i".to_string(),"my fancy directory".to_string(),"-pull".to_string(),"garbage".to_string()]);
+        let user_instructions:UserInstructions=crate::my_sync_arg_parser::parse_args(args);
         assert!(user_instructions.is_help);
         for msg in &user_instructions.error_messages {
             println!("error: {}", &msg);
         }
-        assert_eq!(user_instructions.error_messages.len(), 1); 
-        assert_eq!("Can't use the -i flag with sync strategy 'Pull'", user_instructions.error_messages[0]);       
+
+        let mut error_messages = Vec::new();
+        error_messages.push("Can't use the -i flag with action 'Clone'".to_string());
+        error_messages.push("Can't use the -pull flag with action 'Clone'".to_string()); 
+        error_messages.push("Is 'garbage' an origin? I was already using 'my fancy directory' as the origin...".to_string()); 
+        matchui (user_instructions, UserInstructions { is_help:true, action:ActionTypes::Clone, is_interactive:false, 
+            sync_strategy:SyncStrategy::Sync, do_checksum:false, force_lock:false, origin: Option::Some("my fancy directory".to_string()),
+            error_messages });      
     }
 }
