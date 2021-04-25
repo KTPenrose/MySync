@@ -7,7 +7,7 @@ At this point, this repository is little more than a hello-world.
 ## Proposed Operation
 
 ### Commands
-Command/Synopsys                  |  Description                         | Example
+Action                            |  Description                         | Example
 ----------------------------------|--------------------------------------|------------------------------------
 MySync Clone <Origin Directory>   | Clone a directory (Known as the origin) into the current directory (known as the local repository) | MySync Clone o:\myfiles\myphotos
   MySync Sync [-i] [-push] [-pull] [-checksum] [-forcelock] | Synchronizes any files that have changed between the origin and local repository. Conflicts are ignored by default, and will keep appearing on each subsequent Sync, until they are resolved using one of the arguments: -i, -push, or -pull. | MySync Sync
