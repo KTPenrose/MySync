@@ -7,7 +7,8 @@ fn main() {
     my_sync_help_maker::display_any_problems(&usr_inst);
 
     if usr_inst.is_help {
-        my_sync_help_maker::display_help();
+            //only display full help if explicitly requested.
+            my_sync_help_maker::display_help(usr_inst.is_full_help);
     } else {
         match usr_inst.action {
             my_sync_arg_parser::ActionTypes::Clone => {
@@ -16,12 +17,15 @@ fn main() {
             my_sync_arg_parser::ActionTypes::Sync => {
                 //do sync!
             },
+            my_sync_arg_parser::ActionTypes::Relink => {
+                //do relink!
+            },
             my_sync_arg_parser::ActionTypes::None => {
                 //not actually possible, but no harm no foul
-                my_sync_help_maker::display_help();
+                my_sync_help_maker::display_help(true);
             },
         }
     }
 
-    println!("user_instructions=\n{}\n", usr_inst);
+    println!("\n\nDEBUG INFORMATION: user_instructions=\n{}\n", usr_inst);
 }
