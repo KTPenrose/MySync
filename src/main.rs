@@ -1,5 +1,6 @@
 mod my_sync_arg_parser;
 mod my_sync_help_maker;
+mod my_sync_data;
 
 fn main() {
     let usr_inst = my_sync_arg_parser::parse_args(std::env::args().skip(1));
